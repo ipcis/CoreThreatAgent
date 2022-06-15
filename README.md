@@ -14,13 +14,13 @@ Gets the Windows-Events from Sysmon and sends them over syslog to the destinatio
 + sends sysmon-events to syslog server
 
 ## How to use?
-<code>CoreThreat.exe sysmon</code>
+<code>CoreThreatAgent.exe sysmon</code>
 
-<code>CoreThreat.exe auditpol</code>
+<code>CoreThreatAgent.exe auditpol</code>
 
-<code>CoreThreat.exe psaudit</code>
+<code>CoreThreatAgent.exe psaudit</code>
 
-<code>CoreThreat.exe runagent:(ip or hostname):(port)</code>
+<code>CoreThreatAgent.exe runagent:(ip or hostname):(port)</code>
 
   
 ## Working on the following features
