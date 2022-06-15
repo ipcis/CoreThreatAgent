@@ -20,7 +20,7 @@ Gets the Windows-Events from Sysmon and sends them over syslog to the destinatio
 
 <code>CoreThreatAgent.exe psaudit</code>
 
-<code>CoreThreatAgent.exe runagent:(ip or hostname):(port)</code>
+<code>CoreThreatAgent.exe runagent:(ip or hostname):(port):(proto)</code>
 
 ## Releases
 https://github.com/ipcis/CoreThreatAgent/releases
