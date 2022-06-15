@@ -2,7 +2,7 @@
 Collect security logs and send them over syslog.
 
 Easy to deploy security related logs.
-Automatically installs Sysmon and sets the necessary registry-keys and policies.
+Automatically installs Sysmon, sets the necessary registry-keys and policies.
 
 Gets the Windows-Events from Sysmon and sends them over syslog to the destination of your choice.
 
