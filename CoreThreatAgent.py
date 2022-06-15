@@ -1,12 +1,6 @@
 # CoreThreat Agent
-#thanks to https://github.com/yarox24/attack_monitor/blob/master/installer.py
-
-
-# 2do
-# try download if fail use local files - offline setup
-# multi eventsource - threading
-# udp usage: https://pythontic.com/modules/socket/udp-client-server-example
-
+#
+#
 
 
 import win32evtlog, win32event, win32con
@@ -21,11 +15,11 @@ import subprocess
 import os
 
 
+sPROTO = "TCP"
+sHOST = ""
+sPORT = 514
 
 
-
-#infos
-#https://gist.github.com/gjyoung1974/a68020c7a4e92b5d595ff382e1e19c20
 
 
 # RFC syslog facility types:
@@ -164,8 +158,6 @@ def action_sysmon():
                 else:
                     SYSMON_TAKEN = SYSMON_32
 
-                # FAKE NAME - DOESN'T WORK
-                #shutil.copy(SYSMON_TAKEN, SYSMON_FAKE_NAME)
 
 
                 args = [SYSMON_TAKEN, ]
@@ -186,15 +178,20 @@ def is_os_64_bit():
 
 
 
-def initiateSyslogConnection(host, port):
-    # Open a TCP socket to the remote syslog host
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+def initiateSyslogConnection(host, port, proto):
     
+    if proto == "TCP":
+        # Open a TCP socket to the remote syslog host
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     try:
         s.connect((host, port))
     except:
         print("[!] Connection failed!")
+              
+    if proto == "UDP":
+        # Open a UDP socket to the remote syslog host
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         
     return s
     
@@ -207,30 +204,24 @@ def closeSyslogConnection(s):
 def syslog(s, win_evt, level=LEVEL['debug'], facility=FACILITY['syslog']):
     data = '<%d>%s %s %s %s %s' % (level + facility * 8, '1', ' win-evt', '0', '0', win_evt)
     print(data)
-    s.send(data.encode())  # encode the tuple as bytes for TCP packet
+    
+    if sPROTO == "TCP":
+        s.send(data.encode())  # encode the tuple as bytes for TCP packet
+    if sPROTO == "UDP":
+        s.sendto(data.encode(), (sHOST, sPORT))  # encode the tuple as bytes for UDP packet
 
 
 
 
-def action_run(eventSub, syslog_host, syslog_port):
-	#query_text='*[System[Provider[@Name="Microsoft-Windows-Winlogon"]]]'
-	#query_text='*[System[Provider[@Name="*"]]]'
-
+def action_run(eventSub, syslog_host, syslog_port, syslog_proto):
 	h=win32event.CreateEvent(None, 0, 0, None)
 	s=win32evtlog.EvtSubscribe(eventSub, win32evtlog.EvtSubscribeStartAtOldestRecord, SignalEvent=h, Query=None)
-	#s=win32evtlog.EvtSubscribe('System', win32evtlog.EvtSubscribeStartAtOldestRecord, SignalEvent=h, Query=query_text)
 
-	#Microsoft-Windows-PowerShell/Operational
-	#s=win32evtlog.EvtSubscribe('Microsoft-Windows-PowerShell/Operational', win32evtlog.EvtSubscribeStartAtOldestRecord, SignalEvent=h, Query=None)
-
-
-	#SYSMON - need admin rights - reading
-    #EventSub = 'Microsoft-Windows-Sysmon/Operational'
-	#s=win32evtlog.EvtSubscribe('Microsoft-Windows-Sysmon/Operational', win32evtlog.EvtSubscribeStartAtOldestRecord, SignalEvent=h, Query=None)
-    #s=win32evtlog.EvtSubscribe(eventSub, win32evtlog.EvtSubscribeStartAtOldestRecord, SignalEvent=h, Query=None)
-
-
-	syslog_socket = initiateSyslogConnection(syslog_host, syslog_port)
+	print("")
+	print("SYSLOG PROTO: " + syslog_proto)
+	print("")
+	syslog_socket = initiateSyslogConnection(syslog_host, syslog_port, syslog_proto)
+	syslog(syslog_socket,"HELLO SYSLOG FROM CoreThreat", level=LEVEL['debug'], facility=FACILITY['syslog'])
 
 	while 1:
 		while 1:
@@ -246,7 +237,7 @@ def action_run(eventSub, syslog_host, syslog_port):
 				except:
 				    print("[!] Connection problem! Wait 5 secs and try to reconnect...")
 				    time.sleep(5)
-				    syslog_socket = initiateSyslogConnection(syslog_host, syslog_port)
+				    syslog_socket = initiateSyslogConnection(syslog_host, syslog_port, syslog_proto)
 			print ('retrieved %s events' %len(events))
 		while 1:
 			print ('waiting...')
@@ -264,9 +255,9 @@ def help():
     print("  sysmon - Install (and download) Sysmon with predefined configuration file")
     print("  auditpol - Enable more events of Windows Audit (Evtx) with auditpol.exe")
     print("  psaudit - (Require PowerShell 5) Enhance audit by enabling: ModuleLogging, ScriptBlockLogging and Transcription")
-    print("  runagent:<ip>:<port> - start receiving events and sending over syslogs")
+    print("  runagent:<ip>:<port>:<proto> - start receiving events and sending over syslogs TCP or UDP")
     print("  ")
-    print("  Run agent: CoreThreatAgent.exe runagent:192.168.1.28:514")
+    print("  Run agent: CoreThreatAgent.exe runagent:192.168.1.28:514:TCP")
     print("  Press strg+c to break")
 
 def main():
@@ -290,8 +281,15 @@ def main():
             arguments = action.split(":")
             syslogIP = arguments[1]
             syslogPORT = arguments[2]
+            syslogPROTO = arguments[3]
             #to subscribe more than one eventlog maybe usage of threading
-            action_run('Microsoft-Windows-Sysmon/Operational', str(syslogIP), int(syslogPORT))
+            global sPROTO
+            global sHOST
+            global sPORT
+            sPROTO = syslogPROTO
+            sHOST = syslogIP
+            sPORT = int(syslogPORT)
+            action_run('Microsoft-Windows-Sysmon/Operational', str(syslogIP), int(syslogPORT), str(syslogPROTO))
         else:
             parser.error("Unknown action: {}".format(action))
 
