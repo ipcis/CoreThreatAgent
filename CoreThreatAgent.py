@@ -257,8 +257,8 @@ def action_run(eventSub, syslog_host, syslog_port):
 			
 			
 def help():
-    print("CoreThreat Security-Log Agent")
-    print("Usage: python script.py <action>")
+    print("CoreThreat Agent")
+    print("Usage: CoreThreatAgent.exe <action>")
     print("")
     print("Possible actions:")
     print("  sysmon - Install (and download) Sysmon with predefined configuration file")
@@ -266,7 +266,7 @@ def help():
     print("  psaudit - (Require PowerShell 5) Enhance audit by enabling: ModuleLogging, ScriptBlockLogging and Transcription")
     print("  runagent:<ip>:<port> - start receiving events and sending over syslogs")
     print("  ")
-    print("  Run agent: python <script>.py runagent:192.168.1.28:514")
+    print("  Run agent: CoreThreatAgent.exe runagent:192.168.1.28:514")
     print("  Press strg+c to break")
 
 def main():
