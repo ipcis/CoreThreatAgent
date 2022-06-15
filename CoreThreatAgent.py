@@ -18,7 +18,7 @@ import os
 sPROTO = "TCP"
 sHOST = ""
 sPORT = 514
-
+hostNAME = os.uname()[1]
 
 
 
@@ -202,7 +202,7 @@ def closeSyslogConnection(s):
 
 
 def syslog(s, win_evt, level=LEVEL['debug'], facility=FACILITY['syslog']):
-    data = '<%d>%s %s %s %s %s' % (level + facility * 8, '1', ' win-evt', '0', '0', win_evt)
+    data = '<%d>%s %s %s %s %s' % (level + facility * 8, '1', ' ' + str(hostNAME), '0', '0', win_evt)
     print(data)
     
     if sPROTO == "TCP":
