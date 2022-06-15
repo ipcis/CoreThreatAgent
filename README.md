@@ -1,4 +1,5 @@
 # CoreThreatAgent
+<img src="https://corethreat.net/assets/img/logo.png" height="300px"> 
 Collect security logs and send them over syslog.
 
 Easy to deploy security related logs.
