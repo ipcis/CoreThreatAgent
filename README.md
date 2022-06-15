@@ -22,6 +22,8 @@ Gets the Windows-Events from Sysmon and sends them over syslog to the destinatio
 
 <code>CoreThreatAgent.exe runagent:(ip or hostname):(port)</code>
 
+## Releases
+https://github.com/ipcis/CoreThreatAgent/releases
   
 ## Working on the following features
 - hide cmd dialog
