@@ -3,10 +3,8 @@
 
 ## What is CoreThreat Agent?
 CoreThreat Agent collects security logs and send them over syslog.
-
 Easy to deploy security related logs.
 Automatically installs Sysmon, sets the necessary registry-keys and policies.
-
 Gets the Windows-Events from Sysmon and sends them over syslog to the destination of your choice.
 
 ## Features
@@ -16,11 +14,15 @@ Gets the Windows-Events from Sysmon and sends them over syslog to the destinatio
 + sends sysmon-events to syslog server
 
 ## How to use?
-# CoreThreat.exe sysmon
-# CoreThreat.exe auditpol
-# CoreThreat.exe psaudit
-# CoreThreat.exe runagent:(ip or hostname):(port)
+<code>CoreThreat.exe sysmon</code>
 
+<code>CoreThreat.exe auditpol</code>
+
+<code>CoreThreat.exe psaudit</code>
+
+<code>CoreThreat.exe runagent:(ip or hostname):(port)</code>
+
+  
 ## Working on the following features
 - hide cmd dialog
 - run as admin
