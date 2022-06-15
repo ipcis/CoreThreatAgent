@@ -217,9 +217,6 @@ def action_run(eventSub, syslog_host, syslog_port, syslog_proto):
 	h=win32event.CreateEvent(None, 0, 0, None)
 	s=win32evtlog.EvtSubscribe(eventSub, win32evtlog.EvtSubscribeStartAtOldestRecord, SignalEvent=h, Query=None)
 
-	print("")
-	print("SYSLOG PROTO: " + syslog_proto)
-	print("")
 	syslog_socket = initiateSyslogConnection(syslog_host, syslog_port, syslog_proto)
 	syslog(syslog_socket,"HELLO SYSLOG FROM CoreThreat", level=LEVEL['debug'], facility=FACILITY['syslog'])
 
