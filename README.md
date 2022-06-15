@@ -1,7 +1,7 @@
 # Core|Threat Agent
 <img src="https://corethreat.net/assets/img/logo.png" height="300px"> 
 
-## What is CoreThreat Agent?
+## What is Core|Threat Agent?
 Core|Threat Agent collects security logs and send them over syslog.
 Easy to deploy security related logs.
 Automatically installs Sysmon, sets the necessary registry-keys and policies.
