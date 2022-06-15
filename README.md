@@ -13,7 +13,7 @@ Usage:
 # CoreThreat.exe sysmon
 # CoreThreat.exe auditpol
 # CoreThreat.exe psaudit
-# CoreThreat.exe runagent:<ip or hostname>:<port>
+# CoreThreat.exe runagent:(ip or hostname):(port)
 </pre>
 </code>
 
