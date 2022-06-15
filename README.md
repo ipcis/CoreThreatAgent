@@ -30,5 +30,4 @@ https://github.com/ipcis/CoreThreatAgent/releases
 - run as admin / service
 - other kinds of events: powershell, etc.
 - threading
-- udp
 - filelog
