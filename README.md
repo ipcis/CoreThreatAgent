@@ -26,9 +26,8 @@ Gets the Windows-Events from Sysmon and sends them over syslog to the destinatio
 https://github.com/ipcis/CoreThreatAgent/releases
   
 ## Working on the following features
-- hide cmd dialog
-- run as admin
-- run as service
+- hide cmd dialog (background mode)
+- run as admin / service
 - other kinds of events: powershell, etc.
 - threading
 - udp
