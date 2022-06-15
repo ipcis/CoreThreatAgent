@@ -18,7 +18,7 @@ import os
 sPROTO = "TCP"
 sHOST = ""
 sPORT = 514
-hostNAME = os.uname()[1]
+hostNAME = socket.gethostname()
 
 
 
