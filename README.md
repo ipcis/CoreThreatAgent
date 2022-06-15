@@ -1,4 +1,4 @@
-# CoreThreat Agent
+# Core|Threat Agent
 <img src="https://corethreat.net/assets/img/logo.png" height="300px"> 
 
 ## What is CoreThreat Agent?
