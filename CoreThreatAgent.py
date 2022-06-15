@@ -229,7 +229,7 @@ def action_run(eventSub, syslog_host, syslog_port, syslog_proto):
 			if len(events)==0:
 				break
 			for event in events:
-				print (win32evtlog.EvtRender(event, win32evtlog.EvtRenderEventXml))
+				#print (win32evtlog.EvtRender(event, win32evtlog.EvtRenderEventXml))
 				try:
 				    syslog(syslog_socket,
 				       json.dumps(xmltodict.parse(win32evtlog.EvtRender(event, win32evtlog.EvtRenderEventXml))),
