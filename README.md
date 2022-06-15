@@ -19,6 +19,7 @@ Usage:
 
 
 Future features:
+- hide cmd dialog
 - run as admin
 - run as service
 - other kinds of events: powershell, etc.
