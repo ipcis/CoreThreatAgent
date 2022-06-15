@@ -18,7 +18,7 @@ Usage:
 </code>
 
 
-Future features:
+Working on the following features:
 - hide cmd dialog
 - run as admin
 - run as service
