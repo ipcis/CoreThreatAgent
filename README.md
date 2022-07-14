@@ -1,5 +1,5 @@
 # Core|Threat Agent
-<img src="https://corethreat.net/assets/img/logo.png" height="300px"> 
+<img src="https://corethreat.net/ct_logo_big.png" height="300px"> 
 
 ## What is Core|Threat Agent?
 Core|Threat Agent collects security logs and send them over syslog.
