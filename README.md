@@ -22,6 +22,8 @@ Gets the Windows-Events from Sysmon and sends them over syslog to the destinatio
 
 <code>CoreThreatAgent.exe runagent:(ip or hostname):(port):(proto)</code>
 
+Sample: <code>CoreThreatAgent.exe runagent:10.10.10.1:5555:UDP</code>
+
 ## Releases
 https://github.com/ipcis/CoreThreatAgent/releases
   
