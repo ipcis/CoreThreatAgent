@@ -31,3 +31,7 @@ https://github.com/ipcis/CoreThreatAgent/releases
 - other kinds of events: powershell, etc.
 - threading
 - filelog
+
+## Install on Windows - no exe
+python -m pip install pywin32
+python -m pip install xmltodict
